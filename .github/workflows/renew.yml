@@ -26,6 +26,16 @@ jobs:
         pip install seleniumbase requests
         seleniumbase install chromedriver
 
+    - name: 配置warp（使用开源的usque实现，外加下载好的config.json）
+      run: |
+        curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/config.json > config.json
+        curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/usque > usque
+        chmod +x usque
+        nohup ./usque socks -b 127.0.0.1 -p 2366 -u myuser -w mypass
+        echo "socks5链接为: socks5://myuser:mypass@127.0.0.1:2366"
+        echo "测试链接"
+        curl -x socks5://myuser:mypass@127.0.0.1:2366 https://api.ip.sb/geoip
+
     - name: ⚙ 设置代理 (sing-box)
       continue-on-error: true
       env:
