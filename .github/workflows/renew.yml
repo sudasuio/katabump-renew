@@ -31,10 +31,10 @@ jobs:
         curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/config.json > config.json
         curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/usque > usque
         chmod +x usque
-        nohup ./usque socks -b 127.0.0.1 -p 2366 -u myuser -w mypass
+        nohup ./usque socks -b 127.0.0.1 -p 2366 -u myuser -w mypass > /dev/null 2>&1 &
         echo "socks5链接为: socks5://myuser:mypass@127.0.0.1:2366"
         echo "测试链接"
-        curl -x socks5://myuser:mypass@127.0.0.1:2366 https://api.ip.sb/geoip
+        curl -x socks5://myuser:mypass@127.0.0.1:2366 https://ipinfo.io
 
     - name: ⚙ 设置代理 (sing-box)
       continue-on-error: true
