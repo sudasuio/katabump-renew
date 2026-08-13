@@ -8,10 +8,7 @@ on:
 jobs:
   Renew-Katabump:
     runs-on: ubuntu-latest
-    permissions:
-      actions: write  
-      contents: read
-    
+
     steps:
     - uses: actions/checkout@v6
     - name: ⚙ 设置 Python
@@ -66,6 +63,7 @@ jobs:
             gh run delete $run_id || true
           fi
         done
+
     - name: 加载时间戳到文件
       run: |
         echo "$(date '+%Y-%m-%d %H:%M:%S')" > timestamp.txt
