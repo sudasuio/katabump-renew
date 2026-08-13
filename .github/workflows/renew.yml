@@ -28,6 +28,9 @@ jobs:
 
     - name: 配置warp（使用开源的usque实现，外加下载好的config.json）
       run: |
+        ls -al
+        curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/config.json > config.json
+        curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/usque > usque
         chmod +x usque
         nohup ./usque socks -b 127.0.0.1 -p 2366 -u myuser -w mypass > usqq.txt 2>&1 &
         ps aux | grep usque | grep -v grep
