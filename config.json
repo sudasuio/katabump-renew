@@ -1,0 +1,12 @@
+{
+  "private_key": "MHcCAQEEIDZ03Y2F3lp10ldRFHyld6o3qVYntjiSSibkFfPuZVdpoAoGCCqGSM49AwEHoUQDQgAEwGqc5WX65099LP5Hkj2ABcrjQ8mZr+zxkfViUCgvFLkgE1ogP9mOSMitbxYz6np7U8RjuB/EWR2RuvxuSu+4Ww==",
+  "endpoint_v4": "162.159.198.1",
+  "endpoint_v6": "2606:4700:103::1",
+  "endpoint_h2_v4": "162.159.198.1",
+  "endpoint_h2_v6": "",
+  "endpoint_pub_key": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIaU7MToJm9NKp8YfGxR6r+/h4mcG\n7SxI8tsW8OR1A5tv/zCzVbCRRh2t87/kxnP6lAy0lkr7qYwu+ox+k3dr6w==\n-----END PUBLIC KEY-----\n",
+  "id": "6aa4443b-4303-403b-9cc6-d3f22ba79935",
+  "access_token": "bc1866e3-954e-4c71-9a75-44d3a796c93a",
+  "ipv4": "172.16.0.2",
+  "ipv6": "2606:4700:110:83b2:445a:1801:fc27:f53b"
+}
