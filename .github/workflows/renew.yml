@@ -2,7 +2,7 @@ name: Katabump Auto Renew
 
 on:
   schedule:
-  - cron: '0 2/15 * * *'  # 每天 UTC 0点 (北京时间 8点) 运行,根据服务到期时间自行修改
+  - cron: '30 */8 * * *'  # 每天 UTC 0点 (北京时间 8点) 运行,根据服务到期时间自行修改
   workflow_dispatch: # 允许手动触发
 
 jobs:
@@ -26,11 +26,24 @@ jobs:
     - name: 配置warp（使用开源的usque实现，外加下载好的config.json）
       run: |
         ls -al
-        curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/config.json > config.json
-        curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/usque > usque
+        # curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/config.json > config.json
+        # curl https://raw.githubusercontent.com/sudasuio/katabump-renew/refs/heads/main/usque > usque
         chmod +x usque
         nohup ./usque socks -b 127.0.0.1 -p 2366 -u myuser -w mypass > usqq.txt 2>&1 &
-        ps aux | grep usque | grep -v grep
+        # 等待 usque 启动（最多 15 秒），避免启动竞态；随后确认 SOCKS5 端口真正可用
+        for i in $(seq 1 15); do
+          if pgrep -f "usque socks" > /dev/null 2>&1; then
+            echo "✅ usque 进程已启动（第 ${i} 秒）"
+            break
+          fi
+          sleep 1
+        done
+        if ! timeout 15 bash -c 'until echo > /dev/tcp/127.0.0.1/2366 2>/dev/null; do sleep 1; done'; then
+          echo "::error::usque SOCKS5 端口 2366 不可用，以下是 usque 日志："
+          cat usqq.txt || true
+          exit 1
+        fi
+        echo "✅ SOCKS5 端口 2366 已就绪"
 
     - name: ⚙ 设置代理 (sing-box)
       continue-on-error: true
